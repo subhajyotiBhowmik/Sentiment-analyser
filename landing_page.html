@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentiment-Based Song Recommendations</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body class="bg-light">
+    <div class="container mt-5">
+        <h1 class="mb-4">Welcome to the Sentiment-Based Song Recommendations App</h1>
+
+        <div class="row">
+            <div class="col-md-6">
+                <h2>Get Recommendations</h2>
+                <form action="/recommend" method="post">
+                    <div class="form-group">
+                        <label for="user_input">Enter your mood or a sentence:</label>
+                        <input type="text" class="form-control" id="user_input" name="user_input" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Get Recommendations</button>
+                </form>
+            </div>
+            <div class="col-md-6">
+                <h2>Search for a Specific Song</h2>
+                <form action="/search" method="post">
+                    <div class="form-group">
+                        <label for="search_query">Search for a song:</label>
+                        <input type="text" class="form-control" id="search_query" name="search_query" required>
+                    </div>
+                    <button type="submit" class="btn btn-info">Search</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body class="bg-light">
+    <div class="container mt-5">
+        <h1 class="mb-4">Your Profile</h1>
+
+        <h3>Your Playlists:</h3>
+        <ul class="list-group">
+            {% for playlist in user_playlists %}
+                <li class="list-group-item">{{ playlist['name'] }}</li>
+            {% endfor %}
+        </ul>
+
+        <h3>Your Favorite Songs:</h3>
+        <ul class="list-group">
+            {% for song in favorite_songs %}
+                <li class="list-group-item">{{ song['name'] }} by {{ song['artists'][0]['name'] }}</li>
+            {% endfor %}
+        </ul>
+
+        <hr>
+
+        <h2 class="mt-4">Create a Playlist</h2>
+        <form action="/create_playlist" method="post">
+            <div class="form-group">
+                <label for="playlist_name">Playlist Name:</label>
+                <input type="text" class="form-control" id="playlist_name" name="playlist_name" required>
+            </div>
+            <button type="submit" class="btn btn-success">Create Playlist</button>
+        </form>
+
+        <h2 class="mt-4">Add Favorite Song</h2>
+        <form action="/add_favorite" method="post">
+            <div class="form-group">
+                <label for="favorite_song">Song Name:</label>
+                <input type="text" class="form-control" id="favorite_song" name="favorite_song" required>
+            </div>
+            <button type="submit" class="btn btn-warning">Add to Favorites</button>
+        </form>
+    </div>
+</body>
+</html>

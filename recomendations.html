@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Recommendations</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #007bff;
+        }
+        h3, h4 {
+            color: #343a40;
+        }
+        .list-group-item {
+            background-color: #f8f9fa;
+            border: none;
+        }
+        .play-btn {
+            cursor: pointer;
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="mb-4">Music Recommendations</h2>
+
+        <h3>Sentiment Score: {{ sentiment_score }}</h3>
+
+        <div class="row">
+            <div class="col-md-6">
+                <h4>Your Top Tracks:</h4>
+                <ul class="list-group">
+                    {% for track in user_top_tracks %}
+                        <li class="list-group-item">{{ track['name'] }} by {{ track['artists'][0]['name'] }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <h4>Recommended Songs:</h4>
+                <ul class="list-group">
+                    {% for track in recommendations %}
+                        <li class="list-group-item">
+                            <strong>{{ track['name'] }}</strong> by {{ track['artists'][0]['name'] }}
+                            {% if track['preview_url'] %}
+                                <audio controls class="mt-2">
+                                    <source src="{{ track['preview_url'] }}" type="audio/mpeg">
+                                    Your browser does not support the audio element.
+                                </audio>
+                                <a href="{{ track['external_urls']['spotify'] }}" target="_blank" class="play-btn ml-2">&#9654; Play on Spotify</a>
+                                <p>
+                                    {% if track['audio_features'] %}
+                                        {% set danceability = track['audio_features']['danceability'] %}
+                                        {% set energy = track['audio_features']['energy'] %}
+                                        {% if danceability > 0.7 and energy > 0.7 %}
+                                            This track is energetic and great for parties!
+                                        {% elif danceability < 0.5 and energy < 0.5 %}
+                                            This track has a chill vibe, perfect for relaxing.
+                                        {% else %}
+                                            This track has a balanced energy level.
+                                        {% endif %}
+                                    {% else %}
+                                        Audio features not available for the track.
+                                    {% endif %}
+                                </p>
+                            {% else %}
+                                (No preview available)
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
